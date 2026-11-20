@@ -195,7 +195,7 @@ const FORM_URL = "https://tally.so/r/0Verb6";
 
 /* ===== Submissions open at (Taiwan time). Before this, the page shows "Opening soon". =====
    Add ?soon to the page URL to preview the before-opening view at any time. */
-const OPEN_AT = "2026-11-21T00:00:00+08:00";
+const OPEN_AT = "2026-11-01T00:00:00+08:00"; /* preview branch only: shows the after-open view */
 
 const openTime = new Date(OPEN_AT).getTime();
 const forceSoon = /[?&]soon\b/.test(location.search);
