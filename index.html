@@ -81,7 +81,8 @@ footer{text-align:center;padding:24px 20px 40px}
 /* sticky submit bar (appears after the hero) */
 .sticky{position:fixed;left:0;right:0;bottom:0;z-index:10;padding:12px 16px calc(12px + env(safe-area-inset-bottom));
   background:linear-gradient(180deg,rgba(15,20,11,0),rgba(15,20,11,.92) 35%);transform:translateY(110%);transition:transform .25s ease}
-.sticky.on{transform:none}
+.sticky{transform:none}
+body:not(.soon){padding-bottom:96px} /* room so the always-on button does not cover the last lines */
 .sticky .btn{max-width:420px;padding:14px 20px;font-size:16px}
 @media (prefers-reduced-motion:reduce){.btn,.sticky{transition:none}}
 
@@ -122,10 +123,6 @@ body.soon .open-only{display:none!important}
       </div>
       <div class="open-only">
       <div class="deadline">SUBMISSION DEADLINE: <span class="pill">Dec 3</span></div>
-      <a class="btn js-submit" href="#" target="_blank" rel="noopener">
-        Submit your photo
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
       </div>
       <a class="scroll" href="#info">Full information ↓</a>
     </div>
@@ -173,20 +170,12 @@ body.soon .open-only{display:none!important}
   <section class="final soon-only">
     <p>Submissions open on <b class="js-open-date">Nov 21</b>. Get your best shot ready!</p>
   </section>
-
-  <section class="final open-only">
-    <p>Ready to share what you see?</p>
-    <a class="btn js-submit" href="#" target="_blank" rel="noopener">
-      Submit your photo
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-    </a>
-  </section>
 </main>
 
 <footer><div class="org">IPMB YIA</div></footer>
 
-<div class="sticky open-only" aria-hidden="true">
-  <a class="btn js-submit" href="#" target="_blank" rel="noopener" tabindex="-1">Submit your photo</a>
+<div class="sticky open-only">
+  <a class="btn js-submit" href="#" target="_blank" rel="noopener">Submit your photo</a>
 </div>
 
 <script>
@@ -219,16 +208,6 @@ document.querySelectorAll(".js-submit").forEach(function (a) {
   else { a.removeAttribute("target"); a.href = "#info"; a.title = "Submission form link coming soon"; }
 });
 
-/* show the sticky button once the hero button scrolls out of view */
-const heroBtn = document.querySelector(".hero .btn");
-const sticky = document.querySelector(".sticky");
-const finalBtn = document.querySelector(".final .btn");
-let heroGone = false, finalSeen = false;
-function update(){ sticky.classList.toggle("on", heroGone && !finalSeen); }
-if ("IntersectionObserver" in window) {
-  new IntersectionObserver(function (e) { heroGone = !e[0].isIntersecting; update(); }).observe(heroBtn);
-  new IntersectionObserver(function (e) { finalSeen = e[0].isIntersecting; update(); }).observe(finalBtn);
-}
 </script>
 </body>
 </html>
